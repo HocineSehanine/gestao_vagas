@@ -24,12 +24,11 @@ public class testUtils {
 
         final Algorithm algorithm = Algorithm.HMAC256(secretKey);
         final var expiresIn = Instant.now().plus(Duration.ofHours(2));
-        final var token = JWT.create().withIssuer("javagas")
+
+        return JWT.create().withIssuer("javagas")
                 .withExpiresAt(expiresIn)
                 .withSubject(companyId.toString())
                 .withClaim("roles", Arrays.asList("COMPANY"))
                 .sign(algorithm);
-
-        return token;
     }
 }

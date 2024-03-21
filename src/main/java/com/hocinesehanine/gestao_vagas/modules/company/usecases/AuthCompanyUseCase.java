@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.hocinesehanine.gestao_vagas.modules.company.dto.AuthCompanyDto;
 import com.hocinesehanine.gestao_vagas.modules.company.dto.AuthCompanyResponse;
 import com.hocinesehanine.gestao_vagas.modules.company.repository.CompanyRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.naming.AuthenticationException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class AuthCompanyUseCase {
@@ -20,6 +21,8 @@ public class AuthCompanyUseCase {
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${jwtCompany.secret}")
+    private String secret;
 
     public AuthCompanyUseCase(final CompanyRepository companyRepository, final PasswordEncoder passwordEncoder) {
         this.companyRepository = companyRepository;
@@ -35,14 +38,12 @@ public class AuthCompanyUseCase {
             throw new AuthenticationException();
         }
 
-        final String secret = "JAVAGAS_@321#";
-
         final Algorithm algorithm = Algorithm.HMAC256(secret);
         final var expiresIn = Instant.now().plus(Duration.ofHours(2));
         final var token = JWT.create().withIssuer("javagas")
                 .withExpiresAt(expiresIn)
                 .withSubject(company.getId().toString())
-                .withClaim("roles", Arrays.asList("COMPANY"))
+                .withClaim("roles", List.of("COMPANY"))
                 .sign(algorithm);
 
         return AuthCompanyResponse.builder().access_token(token).expires_in(expiresIn.toEpochMilli()).build();

@@ -1,6 +1,6 @@
 package com.hocinesehanine.gestao_vagas.security;
 
-import com.hocinesehanine.gestao_vagas.providers.JWTProvider;
+import com.hocinesehanine.gestao_vagas.providers.JWTCompanyProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +16,10 @@ import java.io.IOException;
 @Component
 public class SecurityCompanyFilter extends OncePerRequestFilter {
 
-    private final JWTProvider jwtProvider;
+    private final JWTCompanyProvider jwtCompanyProvider;
 
-    public SecurityCompanyFilter(JWTProvider jwtProvider) {
-        this.jwtProvider = jwtProvider;
+    public SecurityCompanyFilter(JWTCompanyProvider jwtCompanyProvider) {
+        this.jwtCompanyProvider = jwtCompanyProvider;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class SecurityCompanyFilter extends OncePerRequestFilter {
         final String header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/company") && (header != null)) {
-            final var token = jwtProvider.validateToken(header);
+            final var token = jwtCompanyProvider.validateToken(header);
             if (token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;

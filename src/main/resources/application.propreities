@@ -1,7 +1,0 @@
-spring.datasource.url=jdbc:mysql://localhost:3306/db-gestao-vagas
-spring.datasource.username=admin
-spring.datasource.username.password=admin
-spring.jpa.hibernate.ddl-auto=update
-
-security.token.secret=JAVAGAS_@321#
-security.token.secret.candidate=JAVAGAS_CANDIDATE_@321#
