@@ -18,6 +18,7 @@ public class CandidateMock {
                 .name("Jhon Doe")
                 .username("jhonDoe_")
                 .email("jhonDoe1@email.com")
+                .password("pass321")
                 .description("Fullstack developer")
                 .curriculum("s3.com/file")
                 .createdAt(LocalDateTime.now())

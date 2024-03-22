@@ -1,6 +1,6 @@
 package com.hocinesehanine.gestao_vagas.modules.candidate.controllers;
 
-import com.hocinesehanine.gestao_vagas.modules.candidate.dto.AuthCandidateDto;
+import com.hocinesehanine.gestao_vagas.modules.candidate.dto.AuthCandidateRequest;
 import com.hocinesehanine.gestao_vagas.modules.candidate.dto.ProfileCandidateResponse;
 import com.hocinesehanine.gestao_vagas.modules.candidate.entities.CandidateEntity;
 import com.hocinesehanine.gestao_vagas.modules.candidate.usecases.ApplyJobCandidateUseCase;
@@ -52,9 +52,9 @@ public class CandidateController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<Object> generateAccessToken(@RequestBody AuthCandidateDto authCandidateDto) {
+    public ResponseEntity<Object> generateAccessToken(@RequestBody AuthCandidateRequest authCandidateRequest) {
         try {
-            final var token = authCandidateUseCase.execute(authCandidateDto);
+            final var token = authCandidateUseCase.execute(authCandidateRequest);
             return ResponseEntity.ok().body(token);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
