@@ -1,6 +1,6 @@
-package com.hocinesehanine.gestao_vagas.security;
+package com.hocinesehanine.gestao_vagas.security.filters;
 
-import com.hocinesehanine.gestao_vagas.providers.JWTCompanyProvider;
+import com.hocinesehanine.gestao_vagas.providers.JWTCandidateProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,25 +14,24 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityCompanyFilter extends OncePerRequestFilter {
+public class SecurityCandidateFilter extends OncePerRequestFilter {
 
-    private final JWTCompanyProvider jwtCompanyProvider;
+    private final JWTCandidateProvider jwtCandidateProvider;
 
-    public SecurityCompanyFilter(JWTCompanyProvider jwtCompanyProvider) {
-        this.jwtCompanyProvider = jwtCompanyProvider;
+    public SecurityCandidateFilter(JWTCandidateProvider jwtCandidateProvider) {
+        this.jwtCandidateProvider = jwtCandidateProvider;
     }
 
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String header = request.getHeader("Authorization");
-
-        if (request.getRequestURI().startsWith("/company") && (header != null)) {
-            final var token = jwtCompanyProvider.validateToken(header);
+        if (request.getRequestURI().startsWith("/candidate") && (header != null)) {
+            final var token = jwtCandidateProvider.validateToken(header);
             if (token == null) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-            request.setAttribute("company_id", token.getSubject());
+            request.setAttribute("candidate_id", token.getSubject());
             final var roles = token.getClaim("roles").asList(Object.class);
             final var grants = roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase())).toList();
             final var auth = new UsernamePasswordAuthenticationToken(token.getSubject(), null, grants);

@@ -1,5 +1,13 @@
 version: '3'
 
+networks:
+  gv-network:
+    driver: bridge
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
 services:
   db-gestao-vagas:
     container_name: db_gestao_vagas
@@ -11,3 +19,38 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    networks:
+      - gv-network
+    volumes:
+      - ./config/prometheus.yml/:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    user: root
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - gv-network
+#  agent:
+#   container_name: newrelic-infra
+#   build:
+#     context: .
+#     dockerfile: newrelic-infra/Dockerfile
+#   cap_add:
+#     - SYS_PTRACE
+#   pid: host
+#   privileged: true
+#   volumes:
+#     - "/:/host:ro"
+#     - "/var/run/docker.sock:/var/run/docker.sock"
+#   restart: unless-stopped
+#   networks:
+#     - gv-network

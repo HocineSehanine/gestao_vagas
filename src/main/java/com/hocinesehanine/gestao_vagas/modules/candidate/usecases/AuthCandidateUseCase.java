@@ -22,7 +22,7 @@ public class AuthCandidateUseCase {
 
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${jwtCompany.secret}")
+    @Value("${jwtCandidate.secret}")
     private String secret;
 
     public AuthCandidateUseCase(final CandidateRepository candidateRepository, final PasswordEncoder passwordEncoder) {

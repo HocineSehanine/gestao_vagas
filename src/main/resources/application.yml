@@ -1,10 +1,11 @@
 spring:
-  config:
-    import: optional:file:.env[.properties
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/db-gestao-vagas
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:root}
+#    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/db-gestao-vagas
+#    username: ${DB_USER:root}
+#    password: ${DB_PASSWORD:root}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
@@ -12,7 +13,22 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
 jwtCandidate:
   secret: "JAVAGAS_CANDIDATE_@321#"
+
 jwtCompany:
   secret: "JAVAGAS_@321#"
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, metrics, prometheus
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    prometheus:
+      enabled: true

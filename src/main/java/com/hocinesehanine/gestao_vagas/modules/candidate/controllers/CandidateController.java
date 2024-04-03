@@ -119,7 +119,7 @@ public class CandidateController {
         return findJobsByFilters.execute(filter);
     }
 
-    @PostMapping("/jpb/apply")
+    @PostMapping("/job/apply")
     @PreAuthorize("hasRole('CANDIDATE')")
     @Operation(summary = "Cadastro de vaga para o candidato", description = "Esssa função é responável por cadatrar um candidato numa vaga")
     @ApiResponses({
