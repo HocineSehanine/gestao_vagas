@@ -1,8 +1,12 @@
 spring:
   datasource:
-#    url: jdbc:postgres://localhost:5432/gestao-vagas
+#    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/db-gestao-vagas
+#    username: ${DB_USER:root}
+#    password: ${DB_PASSWORD:root}
+#    url: jdbc:postgresql://localhost:5432/gestao-vagas
 #    username: admin
 #    password: admin
+
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
@@ -12,7 +16,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgresSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwtCandidate:
   secret: "JAVAGAS_CANDIDATE_@321#"
