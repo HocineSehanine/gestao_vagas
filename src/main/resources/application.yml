@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgres://localhost:5432/gestao-vagas
-    username: admin
-    password: admin
-#    url: ${DATABASE_URL}
-#    username: ${DATABASE_USER}
-#    password: ${DATABASE_PASSWORD}
+#    url: jdbc:postgres://localhost:5432/gestao-vagas
+#    username: admin
+#    password: admin
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
