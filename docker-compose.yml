@@ -9,16 +9,16 @@ volumes:
   grafana_data:
 
 services:
-#  db-gestao-vagas:
-#    container_name: db_gestao_vagas
-#    image: mysql:latest
-#    ports:
-#      - "3306:3306"
-#    environment:
-#      MYSQL_DATABASE: db-gestao-vagas
-#      MYSQL_USER: admin
-#      MYSQL_PASSWORD: admin
-#      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  db-gestao-vagas:
+    container_name: db_gestao_vagas
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db-gestao-vagas
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
   postgres:
     container_name: gestao_vagas_postgres
