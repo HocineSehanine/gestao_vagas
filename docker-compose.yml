@@ -20,16 +20,6 @@ services:
       MYSQL_PASSWORD: admin
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
-  postgres:
-    container_name: gestao_vagas_postgres
-    image: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: gestao_vagas
-
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
