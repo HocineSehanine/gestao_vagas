@@ -19,8 +19,18 @@ jobs:
         run: mvn clean install
       - name: Login docker
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Build docker image
+      - name: Build and push docker image
         run: |
           docker build -t hocinesehanine/gestao_vagas .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push hocinesehanine/gestao_vagas
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image docker hub
+        run: docker pull hocinesehanine/gestao_vagas:latest
+      - name: Remove container
+        run: docker rm -f gestao-vagas
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DB_PORT}} -e DB_USER=${{secrets.DB_USER}} --name gestao-vagas hocinesehanine/gestao_vagas
