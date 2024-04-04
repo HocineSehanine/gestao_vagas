@@ -20,8 +20,7 @@ jobs:
       - name: Login docker
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t hocinesehanine/gestao_vagas .
-      - name: Login docker
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Publish image
-        run: docker run push hocinesehanine/gestao_vagas
+        run: |
+          docker build -t hocinesehanine/gestao_vagas .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push hocinesehanine/gestao_vagas
