@@ -33,4 +33,4 @@ jobs:
       - name: Remove container
         run: docker rm -f gestao-vagas
       - name: Run docker container
-        run: docker run -d -p 8080:8080 -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DB_PORT}} -e DB_USER=${{secrets.DB_USER}} --name gestao-vagas hocinesehanine/gestao_vagas
+        run: docker run -d -p 8080:8080 -e DB_HOST=${{secrets.DB_HOST}} -e DB_PORT=${{secrets.DATABASE_PORT}} -e DB_USER=${{secrets.DATABASE_USER}} -e DB_PASSWORD=${{secrets.DATABASE_PASSWORD}} --name gestao-vagas hocinesehanine/gestao_vagas
